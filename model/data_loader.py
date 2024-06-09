@@ -97,18 +97,10 @@ class TmpSpecsDataset(Dataset):
         im = self.transform(im)
         return im
 
-
 def fetch_dataloader(types, data_dir, params):
     """
     Fetches the DataLoader object for each type in types from data_dir.
 
-    *******************************************************************************************************
-    In this function, we introduce another slit called tmp (temporary). This split represents the temporary
-    spectrograms obtained when a user wants to classify a single song after training. The spectrograms from
-    this split are slices of the same song. This allows for voting on the most likely class.
-    ********************************************************************************************************
-
-    
     Args:
         types: (list) has one or more of 'train', 'dev', 'test', 'tmp' depending on which data is required
         data_dir: (string) directory containing the dataset
@@ -128,10 +120,10 @@ def fetch_dataloader(types, data_dir, params):
                 dl = DataLoader(SpecsDataset(path, train_transformer), batch_size=params.batch_size, shuffle=True,
                                         num_workers=params.num_workers,
                                         pin_memory=params.cuda)
-            #Use the TmpSpecsDataset class instead of the SpecsDataSet class.
+            # Use the TmpSpecsDataset class instead of the SpecsDataSet class.
             elif split == 'tmp':
                 dl = DataLoader(TmpSpecsDataset(path, dev_transformer), batch_size=params.batch_size, shuffle=True,
-                                        num_workers=params.num_workers,
+                                        num_workers=0,  # Set num_workers to 0 to avoid multiprocessing issues
                                         pin_memory=params.cuda)
 
             else:
