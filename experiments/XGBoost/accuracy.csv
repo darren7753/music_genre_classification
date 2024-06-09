@@ -1,0 +1,3 @@
+model,accuracy
+XGBoost,89.09181886414811
+FLAML-Optimized XGBoost,92.43182386790093
