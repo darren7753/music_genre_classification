@@ -32,11 +32,13 @@ def load_pytorch_model_and_params():
 @st.cache_data
 def load_xgboost_model(model_type):
     if model_type == "XGBoost":
-        with open("experiments/XGBoost/base_model_80_20.pkl", "rb") as f:
-            model = pickle.load(f)
+        # with open("experiments/XGBoost/base_model_80_20.pkl", "rb") as f:
+        #     model = pickle.load(f)
+        model = pd.read_pickle("experiments/XGBoost/base_model_80_20.pkl")
     else:
-        with open("experiments/XGBoost/auto_model_80_20.pkl", "rb") as f:
-            model = pickle.load(f)
+        # with open("experiments/XGBoost/auto_model_80_20.pkl", "rb") as f:
+        #     model = pickle.load(f)
+        model = pd.read_pickle("experiments/XGBoost/auto_model_80_20.pkl")
     return model
 
 class ConvFeatureExtractor(nn.Module):
