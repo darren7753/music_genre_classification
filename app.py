@@ -26,7 +26,7 @@ torch.manual_seed(230)
 def load_pytorch_model_and_params():
     params = utils.Params("experiments/Model_5/params.json")
     model = net.Net(params)
-    utils.load_checkpoint(os.path.join("experiments/Model_5", "best" + ".pth.tar"), model)
+    utils.load_checkpoint(os.path.join("experiments/Model_5", "best" + ".pth.tar"), model, device=torch.device("cpu"))
     return params, model
 
 @st.cache_data
@@ -238,6 +238,7 @@ if (audio and xgb_model_options) or (use_sample and xgb_model_options):
             params, model = load_pytorch_model_and_params()
             xgb_model = load_xgboost_model(xgb_model_options)
             feature_extractor = ConvFeatureExtractor(model)
+            model.to(torch.device("cpu"))
             output_directory = preprocess_track_for_classification(audio, tmp_test_folder, slice_output_dir)
 
             if output_directory:
