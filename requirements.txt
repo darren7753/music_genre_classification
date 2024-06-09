@@ -5,3 +5,4 @@ pandas==2.1.4
 altair==5.2.0
 hydralit-components==1.0.10
 Pillow==10.0.1
+matplotlib==3.7.2
